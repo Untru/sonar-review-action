@@ -28,11 +28,15 @@ export class Request {
     const url = this.generateURL(route, queryParameters)
     core.debug('GET ' + url)
     const response = await fetch(url, requestInit)
+    core.debug(`STATUS ${response.status} ${response.statusText}`)
+
+    const jsonBody = (await response.json()) as T
+    core.debug('RESPONSE JSON ' + JSON.stringify(jsonBody))
 
     return {
       status: response.status,
       statusText: response.statusText,
-      data: await response.json()
+      data: jsonBody
     } as R
   }
 
