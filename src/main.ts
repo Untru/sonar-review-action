@@ -17,9 +17,13 @@ export async function run(): Promise<void> {
 
     core.debug(`generate report`)
 
+    const sonarURL = core.getInput('sonar_url') || sonarConfig.getSonarURL()
+    core.info(`sonar_url: ${sonarURL}`)
+    core.setOutput('sonar_url', sonarURL)
+
     generateReport({
       sonarToken: core.getInput('sonar_token') || process.env.SONAR_TOKEN,
-      sonarURL: core.getInput('sonar_url') || sonarConfig.getSonarURL(),
+      sonarURL,
       sonarProjectKey:
         core.getInput('sonar_project') || sonarConfig.getProjectKey(),
       sonarBranchPlugin: core.getBooleanInput('sonar_branch_plugin'),

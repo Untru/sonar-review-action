@@ -31,6 +31,10 @@ inputs:
   github_token:
     required: false
 
+outputs:
+  sonar_url:
+    description: 'Resolved Sonar server URL'
+
 runs:
   using: node20
   main: dist/index.js
